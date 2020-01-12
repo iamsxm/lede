@@ -65,7 +65,6 @@ jobs:
           df -h
       - name: Generate configuration file
         run: |
-          df -h
           make defconfig
 
       - name: Compile firmware
@@ -81,10 +80,13 @@ jobs:
           du -h --max-depth=1 ./bin
 
       - name: Prepare artifact
-        run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+        run: |
+          mkdir ./bin/targets/ubunt
+          cp ./bin/targets/ramips/mt7621/openwrt-ramips-mt7621-ubnt-erx-squashfs-sysupgrade.bin ./bin/targets/ubunt/
+          # find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
           name: OpenWrt firmware
-          path: ./bin/targets/
+          path: ./bin/targets/ubunt
