@@ -65,7 +65,8 @@ jobs:
           df -h
       - name: Generate configuration file
         run: |
-          make oldconfig
+          df -h
+          # make oldconfig
 
       - name: Compile firmware
         run: |
